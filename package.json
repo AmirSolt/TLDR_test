@@ -37,5 +37,11 @@
 		"vite": "^4.3.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.9.4",
+		"@supabase/supabase-js": "^2.21.0",
+		"lucide-svelte": "^0.214.0",
+		"zod": "^3.21.4"
+	}
 }

@@ -1,49 +1,60 @@
 <script lang='ts'>
-	// The ordering of these imports is critical to your app working properly
-	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
-	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
-	import '@skeletonlabs/skeleton/styles/all.css';
-	// Most of your app wide CSS should be put in this file
-	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import Header from '$lib/components/basic/Header.svelte'
+	import Footer from '$lib/components/basic/Footer.svelte';
+	import { AppShell } from '@skeletonlabs/skeleton';
+
+	import '@skeletonlabs/skeleton/themes/theme-crimson.css'
+	import '@skeletonlabs/skeleton/styles/all.css'
+	import '../app.postcss'
+
+
+
+
+
+	// =============== Supabase Auth ===============
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	export let data;
+	$: ({ supabase, session } = data);
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth');
+			}
+		});
+		return () => data.subscription.unsubscribe();
+	});
+	// =============== //////////// ===============
+
+
+
+
 </script>
 
-<!-- App Shell -->
+
+
+
+<svelte:head>
+	<title>TLDR</title>
+	<link rel="icon" href="https://fav.farm/🔥" />
+</svelte:head>
+
+
 <AppShell>
+
 	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-			</svelte:fragment>
-		</AppBar>
+		<header>
+			<Header />
+		</header>
 	</svelte:fragment>
-	<!-- Page Route Content -->
+
 	<slot />
+
+	<svelte:fragment slot="footer">
+		<footer>
+			<Footer />
+		</footer>
+		
+	</svelte:fragment>
 </AppShell>
