@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 
 
 	import Banner from "$lib/components/basic/Banner.svelte";
-	import UrlForm from "$lib/components/urlForm/UrlForm.sveltelte";
+	import Search from "$lib/components/search/Search.svelte";
 
 </script>
 
@@ -12,7 +12,7 @@
 
 		<Banner />
 		
-		<UrlForm />
+		<Search />
 	</div>
 
 </div>	

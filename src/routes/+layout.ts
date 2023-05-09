@@ -21,5 +21,12 @@ export const load = async ({ fetch, data, depends }) => {
     // ===============================
 
 
-    return { supabase, session };
+    // save wallet data to stores
+
+
+    return { 
+        supabase,
+        session,
+        
+    };
 };
