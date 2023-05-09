@@ -7,6 +7,8 @@
     import PaymentPrompt from '$lib/components/payment/PaymentPrompt.svelte';
     import Chat from '$lib/components/chat/Chat.svelte';
 
+    
+
 </script>
 
 
@@ -18,7 +20,7 @@
 <!-- <Modal> -->
     {#if !session?.user}
             <AuthForm />
-    {:else if !($wallet?.credits<1)}
+    {:else if ($wallet?.credits<1)}
         <PaymentPrompt />
     {:else}
         <Chat />
