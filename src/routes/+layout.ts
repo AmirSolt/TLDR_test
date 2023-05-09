@@ -20,10 +20,10 @@ export const load = async ({ fetch, data, depends }) => {
         data: { session }
     } = await supabase.auth.getSession();
     // ===============================
-
     // ===============================
     let wallet;
-	supabase.from('wallets')
+    if(session?.user?.id)
+        await supabase.from('wallets')
         .select()
         .eq('id', session?.user.id)
         .single()
@@ -32,9 +32,10 @@ export const load = async ({ fetch, data, depends }) => {
         })
     // ===============================
 
+
     return { 
         supabase,
         session,
-        wallet,
+        wallet
     };
 };

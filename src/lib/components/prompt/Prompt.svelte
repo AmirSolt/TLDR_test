@@ -9,6 +9,12 @@
 
 </script>
 
+
+
+<h3>
+    AuthForm || User email: {session?.user?.email}
+</h3>
+
 <!-- <Modal> -->
     {#if !session?.user}
             <AuthForm />
