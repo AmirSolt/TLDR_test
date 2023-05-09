@@ -3,7 +3,7 @@
     export let data;
     $:( {kw} = data );
 
-    import AuthForm from '$lib/components/auth/AuthForm.svelte'
+    import Prompt from '$lib/components/prompt/Prompt.svelte';
 
 </script>
 
@@ -13,4 +13,4 @@
 </h1>
 
 
-<AuthForm />
+<Prompt />
