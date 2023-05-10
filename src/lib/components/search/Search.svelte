@@ -4,20 +4,32 @@
 
 
 
-    $: keyWord = ""
+
+    async function searchKeyword(e) {
+        const form = e.target
+        const data = new FormData(form)
+        const req = Object.fromEntries(data) 
+        const kw = req.keyword as string
+        // redirect
+        window.location.href = `/products?kw=${kw}`
+    }
+
+
 </script>
 
 
 
-<div class="flex w-full justify-center">
+<div >
 
-    <label class="label w-4/6 mx-2">
-        <input bind:value={keyWord} class="input variant-ghost w-100" type="text" placeholder="Search" />
-    </label>
-    
-    <a href="/products?kw={keyWord}" type="button" class="btn-icon variant-filled  mx-2">
-        <span><Search /></span>
-    </a>
+    <form class="flex w-full justify-center"  on:submit|preventDefault={searchKeyword}>
+        <label class="label w-4/6 mx-2">
+            <input name="keyword" class="input variant-ghost w-100" type="text" placeholder="Search" />
+        </label>
+        
+        <button type="submit" class="btn-icon variant-filled mx-2">
+            <span><Search /></span>
+        </button>
+    </form>
 
 </div>    
 

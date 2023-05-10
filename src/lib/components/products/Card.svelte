@@ -3,16 +3,27 @@
 
     export let product:any; 
     
+    import StarRating from "./StarRating.svelte";
 
+    import Prompt from "$lib/components/prompt/Prompt.svelte";
+    let showPrompt: boolean = false;
 
 </script>
 
 
 
-<a id="product_card" href="{product.url}" class="card p-4"> 
-    <div id="media">
-        <img src="{product.thumbnail}" alt="Thumbnail">
-    </div>
+<div id="product_card"  class="card p-4 card-hover overflow-hidden"> 
+
+    <Prompt {product} bind:showPrompt />
+
+
+    <header>
+        <a href="{product.url}" id="media" target="_blank" rel="noopener">
+            <img src="{product.thumbnail}" alt="Thumbnail" class=" w-full ">
+        </a>
+    </header>
+    
+
     <div id="info">
         <div id="brand" class="row">
             
@@ -20,9 +31,10 @@
         <div id="title" class="row">
             <h3>{product.title}</h3>
         </div>
-        <div id="review" class="row">
-            {product.reviews.total_reviews}
-            {product.reviews.rating}
+        <div id="review" class="row flex items-center">
+            <StarRating rating={product.reviews.rating} />
+            <span class="mx-2">({product.reviews.total_reviews})</span>
+            
         </div>
         <div id="price" class="row">
             <h3>
@@ -30,9 +42,9 @@
             </h3>
 
             {#if product.price.discounted}
-                <h3>
+                <s>
                     {product.price.currency} {product.price.before_price}
-                </h3>
+                </s>
                 {#if product.price.savings_percent > product.price.savings_amount}
                     <h3>
                         {product.price.savings_percent}% off
@@ -61,5 +73,13 @@
 
     </div>
 
-</a>
+    <footer>
+
+        <button class="btn variant-filled" type="button" on:click={() => (showPrompt = true)}>
+            Open Chat
+        </button>
+
+    </footer>
+
+</div>
 

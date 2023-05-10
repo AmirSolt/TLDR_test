@@ -20,7 +20,7 @@
         No products found
     </h3>
 {:else}
-    <div class="row">
+    <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 grid-rows-3">
         {#each products as product}
             <Card product={product} />
         {/each}

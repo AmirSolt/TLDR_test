@@ -51,8 +51,12 @@
 	</svelte:fragment>
 
 	<MiniDashboard />
-
-	<slot />
+	<div class="flex justify-center">
+		<div class="max-w-7xl p-4">
+			<slot />
+		</div>
+	</div>	
+	
 
 	<svelte:fragment slot="footer">
 		<footer>

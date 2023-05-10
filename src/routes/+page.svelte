@@ -7,13 +7,9 @@
 </script>
 
 
-<div class="flex justify-center">
-	<div class="max-w-5xl">
 
-		<Banner />
-		
-		<Search />
-	</div>
+<Banner />
 
-</div>	
+<Search />
+
 
