@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import Header from '$lib/components/basic/Header.svelte'
 	import Footer from '$lib/components/basic/Footer.svelte';
+	import MiniDashboard from '$lib/components/dashboard/MiniDashboard.svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
 
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css'
@@ -48,6 +49,8 @@
 			<Header />
 		</header>
 	</svelte:fragment>
+
+	<MiniDashboard />
 
 	<slot />
 

@@ -7,17 +7,16 @@
     import PaymentPrompt from '$lib/components/payment/PaymentPrompt.svelte';
     import Chat from '$lib/components/chat/Chat.svelte';
 
-    
+    let showModal: boolean = false;    
 
 </script>
 
 
+<button class="btn variant-filled" type="button" on:click={() => (showModal = true)}>
+    Open Chat
+</button>
 
-<h3>
-    AuthForm || User email: {session?.user?.email}
-</h3>
-
-<!-- <Modal> -->
+<Modal bind:showModal>
     {#if !session?.user}
             <AuthForm />
     {:else if ($wallet?.credits<1)}
@@ -25,4 +24,4 @@
     {:else}
         <Chat />
     {/if}
-<!-- </Modal> -->
+</Modal>
