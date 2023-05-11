@@ -13,7 +13,6 @@
 
 </script>
 
-
 <Modal bind:showModal={showPrompt}>
     <h2>
        ASIN: {$compareList}
@@ -21,10 +20,9 @@
 
     {#if !session?.user}
             <AuthForm />
-    {:else if ($wallet?.credits<1)}
+    {:else if !($wallet?.is_subscribed)}
         <PaymentPrompt />
     {:else}
         <Chat />
     {/if}
 </Modal>
-

@@ -45,6 +45,8 @@ export const load = async ({url}) => {
         }
     }
 
+    console.log("====================================")
+    console.log("Starting scraping products")
 
     return{
         kw,

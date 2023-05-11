@@ -27,11 +27,11 @@
         </Modal>
 
     {:else}
-        {#if $wallet?.credits<4 && !$wallet?.auto_pay}
+        {#if !$wallet?.is_subscribed}
         <h3>
-            You only have {$wallet?.credits} credits. Please turn on auto-pay or add more credits.
+            Please subscribe to use the chat
             <button class="btn variant-filled" type="button" on:click={() => (showModal2 = true)}>
-                Plans
+                PRO
             </button>
         </h3>
             <Modal bind:showModal={showModal2}>
@@ -39,7 +39,7 @@
             </Modal>
         {:else}
         <h3>
-            You have {$wallet?.credits} credits
+            You are subscribed
         </h3>
         {/if}
     {/if}

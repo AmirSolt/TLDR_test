@@ -11,24 +11,54 @@
     }
 
 
+    import { ProgressRadial } from '@skeletonlabs/skeleton';
+    $: progressValue = ($compareList.length/3)*100;
+
 </script>
 
-<div>
-    {#each $compareList as product}
-        <!-- using tailwind turnecate button text in a way that it starts from begining and cuts in the middle -->
-        <button type="button" class="w-32  btn variant-filled" on:click={()=>removeCompareProduct(product)}>
-            <span class="truncate">
-                {product.title}
-            </span>
-            <span>
-                <X />
-            </span>
-        </button>
-    {/each}
+<div class="flex justify-between items-center  p-2 variant-soft rounded-lg">
+    
 
-    <button class="btn variant-filled-primary" type="button" on:click={() => (showPrompt = true)}>
-        Open Chat
-    </button>   
+
+    <div >
+        {#each $compareList as product}
+            <!-- using tailwind turnecate button text in a way that it starts from begining and cuts in the middle -->
+            <button type="button" class="w-32  btn variant-filled" on:click={()=>removeCompareProduct(product)}>
+                <span class="truncate">
+                    {product.title}
+                </span>
+                <span>
+                    <X />
+                </span>
+            </button>
+        {/each}
+    </div>
+
+
+    <div class="flex justify-between items-center">
+        <div class="me-3">
+
+            <ProgressRadial width='w-28' font={120} value={progressValue}>
+                {$compareList.length}
+            </ProgressRadial>
+        </div>
+
+
+        <div class="ms-3">
+            {#if $compareList.length>0}
+            <button class="btn variant-filled-primary" type="button" on:click={() => (showPrompt = true)}>
+                Open Chat
+            </button>  
+        
+            {:else}
+            <button class="btn variant-ringed" type="button" disabled>
+                Open Chat
+            </button>  
+            {/if}
+        </div>
+        
+    </div>
+ 
 </div>
 
 

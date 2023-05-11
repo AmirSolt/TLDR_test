@@ -1,24 +1,34 @@
 
 <script lang="ts">
-
     export let product:any; 
     
     import StarRating from "./StarRating.svelte";
 
 
     import {compareList} from './compareList';
+
+
+    const MAX_COMPARE_LIST_SIZE = 3;
+
     function addCompareProduct(){
         compareList.update(
-            (list) => list.find((item) => item.asin === product.asin) ? list : [...list, product]
+
+            (list)=>{
+                if(list.length>=MAX_COMPARE_LIST_SIZE){
+                    return list;
+                }
+                return list.find((item) => item.asin === product.asin) ? list : [...list, product]
+            }
         )
     }
+
 
 
 </script>
 
 
 
-<div id="product_card"  class="card p-4 card-hover overflow-hidden"> 
+<div id="product_card"  class="card variant-soft rounded-lg p-4 overflow-hidden"> 
 
     <!-- <Prompt {product} bind:showPrompt /> -->
 
@@ -81,9 +91,17 @@
 
     <footer>
 
-        <button class="btn variant-filled" type="button" on:click={addCompareProduct}>
-            +Compare
-        </button>
+        {#if $compareList.find((item) => item.asin === product.asin) || $compareList.length>=MAX_COMPARE_LIST_SIZE}
+            <button class="btn variant-filled" type="button" on:click={addCompareProduct} disabled>
+                +Compare
+            </button>
+        {:else}
+            <button class="btn variant-filled" type="button" on:click={addCompareProduct}>
+                +Compare
+            </button>
+
+        {/if}
+
 
     </footer>
 
