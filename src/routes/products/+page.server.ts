@@ -1,31 +1,3 @@
-const sample = {
-    "position": {
-        "page": 1,
-        "position": 1,
-        "global_position": 1
-    },
-    "asin": "B0B3HMB6YN",
-    "price": {
-        "discounted": true,
-        "current_price": 65.99,
-        "currency": "USD",
-        "before_price": 69.99,
-        "savings_amount": 4,
-        "savings_percent": 5.72
-    },
-    "reviews": {
-        "total_reviews": 1112,
-        "rating": 4.6
-    },
-    "url": "https://www.amazon.com/dp/B0B3HMB6YN",
-    "score": "5115.20",
-    "sponsored": false,
-    "amazonChoice": false,
-    "bestSeller": false,
-    "amazonPrime": false,
-    "title": "Call of Duty: Modern Warfare II - Xbox Series X & Xbox One",
-    "thumbnail": "https://m.media-amazon.com/images/I/81YeBLA3U4L._AC_UY218_.jpg"
-}
 
 
 
@@ -48,8 +20,25 @@ export const load = async ({url}) => {
     console.log("====================================")
     console.log("Starting scraping products")
 
+    console.time("Scraping products")
+
+    // let products = await getSearchResults(kw??'', 'US')
+    // if(products.status !== 200){
+    //     return {
+    //         error: true,
+    //         message: "Error while getting products",
+    //         products: [],
+    //         kw:'error'
+    //     }
+    // }
+    // products = await products.json()
+
+    let products = await getSearchResults(kw)
+
+    console.timeEnd("Scraping products")
+
     return{
         kw,
-        products: await getSearchResults(kw)
+        products: products
     }
 };
