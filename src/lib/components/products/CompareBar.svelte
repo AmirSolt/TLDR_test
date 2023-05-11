@@ -15,15 +15,23 @@
 
 <div>
     {#each $compareList as product}
-        <button type="button" class="btn variant-filled" on:click={()=>removeCompareProduct(product)}>
-            {product.title} <X />
+        <!-- using tailwind turnecate button text in a way that it starts from begining and cuts in the middle -->
+        <button type="button" class="w-32  btn variant-filled" on:click={()=>removeCompareProduct(product)}>
+            <span class="truncate">
+                {product.title}
+            </span>
+            <span>
+                <X />
+            </span>
         </button>
     {/each}
+
+    <button class="btn variant-filled-primary" type="button" on:click={() => (showPrompt = true)}>
+        Open Chat
+    </button>   
 </div>
 
-<button class="btn variant-filled" type="button" on:click={() => (showPrompt = true)}>
-    Open Chat
-</button>   
+
 
 
 <Prompt bind:showPrompt={showPrompt} />

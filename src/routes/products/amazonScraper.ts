@@ -3,9 +3,7 @@
 
 
 
-// var http = require('http');
-const amazonScraper = require('amazon-buddy');
-var fs = require('fs');
+import amazonScraper from 'amazon-buddy';
 
 
 
@@ -28,7 +26,15 @@ function getProductSpecifications(result){
     return product_information
 }
 
-async function getProductInformation(asin){
+
+
+export async function getSearchResults(keyword){
+    const products = await amazonScraper.products({ keyword: keyword, number: 50 });
+    return products.result
+}
+
+
+export async function getProductInformation(asin){
     const product_by_asin = await amazonScraper.asin({ asin: 'B07PKDKC53' });
     let result = product_by_asin.result[0];
     return {
@@ -41,43 +47,43 @@ async function getProductInformation(asin){
     }
 }
 
-async function getReviews(asin){
+export async function getReviews(asin){
     const reviews = await amazonScraper.reviews({ asin: asin, number: 50 });
     return reviews.result.map((review) => review.review)
 }
 
 
 
-const scraper =  async () => {
-    try {
-        console.log("Starting scraping products")
+// const scraper =  async () => {
+//     try {
+//         console.log("Starting scraping products")
 
-        console.time('main');
+//         console.time('main');
 
-        let asin = 'B07PKDKC53'
+//         let asin = 'B07PKDKC53'
     
-        // const products = await amazonScraper.products({ keyword: 'Bag', number: 50 });
+//         // const products = await amazonScraper.products({ keyword: 'Bag', number: 50 });
         
         
-        let product_information = await getProductInformation(asin)
-        let reviews = await getReviews(asin)
+//         let product_information = await getProductInformation(asin)
+//         let reviews = await getReviews(asin)
         
-        console.log(`Found ${reviews.length} reviews`)
+//         console.log(`Found ${reviews.length} reviews`)
 
-        const data = {
-            "product_information":product_information,
-            "reviews":reviews
-        }
+//         const data = {
+//             "product_information":product_information,
+//             "reviews":reviews
+//         }
 
-        fs.writeFile ("product_data.json", JSON.stringify(data), function(err) {
-            if (err) throw err;
-            console.log('complete');
-            }
-        );
+//         fs.writeFile ("product_data.json", JSON.stringify(data), function(err) {
+//             if (err) throw err;
+//             console.log('complete');
+//             }
+//         );
 
-        console.timeEnd('main');
+//         console.timeEnd('main');
 
-    } catch (error) {
-        console.log(error);
-    }
-}
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }

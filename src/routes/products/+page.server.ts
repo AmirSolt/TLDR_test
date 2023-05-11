@@ -30,7 +30,7 @@ const sample = {
 
 
 
-
+import {getSearchResults} from './amazonScraper'
 import {searchSchema} from '$lib/schemas/products';
 
 export const load = async ({url}) => {
@@ -45,8 +45,9 @@ export const load = async ({url}) => {
         }
     }
 
+
     return{
         kw,
-        products: Array(10).fill(sample)
+        products: await getSearchResults(kw)
     }
 };
