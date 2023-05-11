@@ -4,10 +4,13 @@
     $:( {kw, products} = data );
 
     import Prompt from '$lib/components/prompt/Prompt.svelte';
-
+    import CompareBar from '$lib/components/products/CompareBar.svelte';
     import Card from '$lib/components/products/Card.svelte';
 
 </script>
+
+
+<CompareBar />
 
 
 <h1>

@@ -7,17 +7,16 @@
     import PaymentPrompt from '$lib/components/payment/PaymentPrompt.svelte';
     import Chat from '$lib/components/chat/Chat.svelte';
 
-    export let product:any;
+    import {compareList} from '$lib/components/products/compareList';
+
     export let showPrompt: boolean = false;    
 
 </script>
 
 
-
-
 <Modal bind:showModal={showPrompt}>
     <h2>
-       ASIN: {product.asin}
+       ASIN: {$compareList}
     </h2>
 
     {#if !session?.user}
@@ -28,3 +27,4 @@
         <Chat />
     {/if}
 </Modal>
+

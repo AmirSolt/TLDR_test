@@ -1,41 +1,40 @@
 <script lang='ts'>
-	export let showModal:boolean; // boolean
+	export let showModal:boolean;
+	let dialog:any;
+	import {X} from 'lucide-svelte'
 
-	let dialog:any; // HTMLDialogElement
 
 	$: if (dialog && showModal) dialog.showModal();
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
+	class="card p-4"
 	bind:this={dialog}
 	on:close={() => (showModal = false)}
 	on:click|self={() => dialog.close()}
 >
 	<div on:click|stopPropagation>
+		<div class="flex justify-end">
+			<!-- svelte-ignore a11y-autofocus -->
+			<button class="btn-icon variant-filled" autofocus on:click={() => dialog.close()}><X /></button>
+		</div>
 		<slot name="header" />
-		<hr />
+		<br>
 		<slot />
-		<hr />
-		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>close modal</button>
+
+		<br>
+		<br>
+		
 	</div>
 </dialog>
 
 
 
 <style>
-	dialog {
-		max-width: 32em;
-		border-radius: 0.2em;
-		border: none;
-		padding: 0;
-	}
+
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
-	}
-	dialog > div {
-		padding: 1em;
 	}
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -58,8 +57,5 @@
 		to {
 			opacity: 1;
 		}
-	}
-	button {
-		display: block;
 	}
 </style>

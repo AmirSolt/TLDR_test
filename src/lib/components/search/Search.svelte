@@ -2,7 +2,7 @@
 <script lang="ts">
     import {Search} from 'lucide-svelte'
 
-
+    import { browser } from '$app/environment';
 
 
     async function searchKeyword(e) {
@@ -10,8 +10,10 @@
         const data = new FormData(form)
         const req = Object.fromEntries(data) 
         const kw = req.keyword as string
-        // redirect
-        window.location.href = `/products?kw=${kw}`
+
+        if (browser) { 
+            window.location.href = `/products?kw=${kw}`;
+        }
     }
 
 

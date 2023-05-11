@@ -5,8 +5,14 @@
     
     import StarRating from "./StarRating.svelte";
 
-    import Prompt from "$lib/components/prompt/Prompt.svelte";
-    let showPrompt: boolean = false;
+
+    import {compareList} from './compareList';
+    function addCompareProduct(){
+        compareList.update(
+            (list) => list.find((item) => item.asin === product.asin) ? list : [...list, product]
+        )
+    }
+
 
 </script>
 
@@ -14,7 +20,7 @@
 
 <div id="product_card"  class="card p-4 card-hover overflow-hidden"> 
 
-    <Prompt {product} bind:showPrompt />
+    <!-- <Prompt {product} bind:showPrompt /> -->
 
 
     <header>
@@ -75,8 +81,8 @@
 
     <footer>
 
-        <button class="btn variant-filled" type="button" on:click={() => (showPrompt = true)}>
-            Open Chat
+        <button class="btn variant-filled" type="button" on:click={addCompareProduct}>
+            +Compare
         </button>
 
     </footer>
