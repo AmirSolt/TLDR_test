@@ -1,7 +1,6 @@
 <script lang="ts">
     import {page} from '$app/stores';
     import {logout} from './authFuncs';
-    import { browser } from '$app/environment';
 
     $: ({supabase, session} = $page.data)
 

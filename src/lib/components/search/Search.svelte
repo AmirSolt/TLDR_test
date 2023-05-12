@@ -1,9 +1,9 @@
 
 <script lang="ts">
     import {Search} from 'lucide-svelte'
-    import { redirect } from "@sveltejs/kit"
     import { browser } from '$app/environment';
-
+    import {goto} from '$app/navigation';
+    
     let searchTerm:string = '';
 
   
@@ -16,6 +16,12 @@
     })
 
 
+    async function searchForm(e) {
+        if (searchTerm.length > 0) {
+            goto(`/products/${searchTerm}`)
+        }
+    }
+
 </script>
 
 
@@ -24,7 +30,7 @@
 
 
 <div class="my-5" >
-    <form class="flex w-full h-14 justify-center"  action={`/products/${searchTerm}`} method="GET">
+    <form class="flex w-full h-14 justify-center"  on:submit|preventDefault={searchForm}>
         <div class="input-group input-group-divider grid-cols-[1fr_auto] variant-ringed ">
             <input type="text" placeholder="Search..." bind:value={searchTerm} />
             <button class="variant-filled-secondary"><Search /></button>
