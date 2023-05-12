@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	$: ({ supabase, session, wallet } = $page.data);
+	import { wallet } from '$lib/data/stores';
+	$: ({ supabase, session } = $page.data);
 
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 	import PaymentPrompt from '$lib/components/payment/PaymentPrompt.svelte';
@@ -10,9 +11,7 @@
 	let showModal2: boolean = false;
 </script>
 
-{#if session?.user && wallet?.is_subscribed}
-	<div />
-{:else if !session?.user}
+{#if !session?.user}
 	<div class="card p-4 variant-soft-primary">
 		<h3>
 			You are not logged in
@@ -25,7 +24,7 @@
 			<AuthForm />
 		</Modal>
 	</div>
-{:else if !$wallet?.is_subscribed}
+{:else if $wallet?.plan === 'FREE'}
 	<div class="card p-4 variant-soft-primary">
 		<h3>
 			Please subscribe to use the chat
@@ -36,5 +35,11 @@
 		<Modal bind:showModal={showModal2}>
 			<PaymentPrompt />
 		</Modal>
+	</div>
+{:else if $wallet?.credit < 1}
+	<div class="card p-4 variant-soft-primary">
+		<h3>
+            You have used up all your credit for this month.
+        </h3>
 	</div>
 {/if}

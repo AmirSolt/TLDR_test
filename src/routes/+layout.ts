@@ -1,7 +1,5 @@
-import { invalidate } from '$app/navigation';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
 import {PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY} from '$env/static/public';
-import {readable} from 'svelte/store'
 
 
 export const load = async ({ fetch, data, depends }) => {

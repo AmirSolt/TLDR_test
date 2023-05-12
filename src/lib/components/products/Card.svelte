@@ -5,7 +5,7 @@
     import StarRating from "./StarRating.svelte";
 
 
-    import {compareList} from './compareList';
+    import {compareList} from '$lib/data/stores';
 
 
     const MAX_COMPARE_LIST_SIZE = 3;

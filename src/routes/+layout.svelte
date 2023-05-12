@@ -8,17 +8,30 @@
 	import '@skeletonlabs/skeleton/styles/all.css'
 	import '../app.postcss'
 
-
-
-
-
-	// =============== Supabase Auth ===============
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	export let data;
 	$: ({ supabase, session } = data);
+	
+	
+	
+	
+	import {wallet} from '$lib/data/stores';
+
+	async function fetchData(){
+		console.log('getWallet');
+		if (!$wallet.plan) {
+			let results = await supabase.from('wallets').select('plan, credit').single()
+			wallet.set(
+				results.data?? {}
+			)
+		}
+	}
+
 
 	onMount(() => {
+		fetchData();
+		// ================================
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
@@ -26,13 +39,11 @@
 		});
 		return () => data.subscription.unsubscribe();
 	});
-	// =============== //////////// ===============
 
 	
 
 
 </script>
-
 
 
 

@@ -3,8 +3,7 @@
     import Prompt from "$lib/components/prompt/Prompt.svelte";
     let showPrompt: boolean = false;
 
-    import {test} from '$lib/data/stores';
-    import {compareList} from './compareList';
+    import {compareList} from '$lib/data/stores';
     function removeCompareProduct(product){
         compareList.update(
             (list) => list.filter((item) => item.asin !== product.asin)
