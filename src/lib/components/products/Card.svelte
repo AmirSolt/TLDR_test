@@ -28,14 +28,16 @@
 
 
 
-<div id="product_card"  class="card variant-soft rounded-lg p-4 overflow-hidden"> 
+<div id="product_card"  class=" flex flex-col justify-between  card variant-soft rounded-lg p-4 overflow-hidden"> 
 
     <!-- <Prompt {product} bind:showPrompt /> -->
 
 
     <header>
         <a href="{product.url}" id="media" target="_blank" rel="noopener">
-            <img src="{product.thumbnail}" alt="Thumbnail" class=" w-full ">
+            <div class="drop-shadow-lg rounded-lg">
+                <img src="{product.thumbnail}" alt="Thumbnail" class=" w-full max-w-md max-h-md rounded-lg ">
+            </div>
         </a>
     </header>
     
@@ -91,16 +93,17 @@
 
     <footer>
 
-        {#if $compareList.find((item) => item.asin === product.asin) || $compareList.length>=MAX_COMPARE_LIST_SIZE}
-            <button class="btn variant-filled" type="button" on:click={addCompareProduct} disabled>
-                -
-            </button>
-        {:else}
-            <button class="btn variant-filled" type="button" on:click={addCompareProduct}>
-                +Compare
-            </button>
-
-        {/if}
+        <div class='text-end w-full h-14'>
+            {#if $compareList.find((item) => item.asin === product.asin) || $compareList.length>=MAX_COMPARE_LIST_SIZE}
+                <button class="btn variant-filled w-1/2 h-full" type="button" on:click={addCompareProduct} disabled>
+                    -
+                </button>
+            {:else}
+                <button class="btn variant-filled w-1/2 h-full" type="button" on:click={addCompareProduct}>
+                    +Compare
+                </button>
+            {/if}
+        </div>
 
 
     </footer>
