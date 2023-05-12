@@ -1,6 +1,6 @@
 
 
-export const searchResultSample = [
+export const getSearchResults = async (keyword, country) =>  [
     {
         position: { page: 1, position: 19, global_position:
      19 },

@@ -1,18 +1,14 @@
 <script lang="ts">
-    import { redirect } from "@sveltejs/kit"
     import {page} from '$app/stores';
     import {logout} from './authFuncs';
+    import { browser } from '$app/environment';
 
     $: ({supabase, session} = $page.data)
 
 
         async function logoutForm(e) {
-        const form = e.target
-        const data = new FormData(form)
-        const response = await logout(supabase)
-        if(!response.error)
-            redirect(303, "/")
-    }
+            const response = await logout(supabase)
+        }
 </script>
 
 {#if session}

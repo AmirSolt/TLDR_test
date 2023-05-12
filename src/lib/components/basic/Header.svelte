@@ -2,7 +2,7 @@
 	import { AppBar, LightSwitch } from '@skeletonlabs/skeleton'
 	import { Flame, Home } from 'lucide-svelte'
 
-	import Logout from '$lib/components/auth/Logout.svelte'
+	import SettingsMenu from '$lib/components/setttings/SettingsMenu.svelte';
 	
 	import { page } from '$app/stores'
 	$: user = $page.data.session?.user
@@ -21,8 +21,13 @@
 
 	<svelte:fragment slot="trail">
 
+		<a class="flex gap-1" href="/pricing">
+			Pricing
+		</a>
+
 		{#if user}
-			<Logout />
+			<SettingsMenu />
+			
 		{/if}
 
 		<LightSwitch />

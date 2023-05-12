@@ -20,6 +20,7 @@
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+			console.log('supabase.auth.onAuthStateChange', event, _session);
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
@@ -51,6 +52,7 @@
 	</svelte:fragment>
 
 	<MiniDashboard />
+	
 	<div class="flex justify-center">
 		<div class="max-w-7xl p-4">
 			<slot />

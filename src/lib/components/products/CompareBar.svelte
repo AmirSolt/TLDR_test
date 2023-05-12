@@ -3,6 +3,7 @@
     import Prompt from "$lib/components/prompt/Prompt.svelte";
     let showPrompt: boolean = false;
 
+    import {test} from '$lib/data/stores';
     import {compareList} from './compareList';
     function removeCompareProduct(product){
         compareList.update(
