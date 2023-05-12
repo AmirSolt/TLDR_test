@@ -1,8 +1,6 @@
 
-
-
-
-import {getSearchResults} from './amazonScraper'
+import {searchResultSample} from './sampleData'
+// import {getSearchResults} from './amazonScraper'
 import {searchSchema} from '$lib/schemas/products';
 
 export const load = async ({url}) => {
@@ -17,11 +15,7 @@ export const load = async ({url}) => {
         }
     }
 
-    console.log("====================================")
-    console.log("Starting scraping products")
-
-    console.time("Scraping products")
-
+    // Rapid API
     // let products = await getSearchResults(kw??'', 'US')
     // if(products.status !== 200){
     //     return {
@@ -33,12 +27,12 @@ export const load = async ({url}) => {
     // }
     // products = await products.json()
 
-    let products = await getSearchResults(kw)
-
-    console.timeEnd("Scraping products")
+    // Amazon Buddy
+    // let products = await getSearchResults(kw)
+    // console.log(products)
 
     return{
         kw,
-        products: products
+        products: searchResultSample
     }
 };

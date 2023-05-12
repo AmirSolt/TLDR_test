@@ -52,7 +52,7 @@
         
             {:else}
             <button class="btn variant-ringed" type="button" disabled>
-                Open Chat
+                -
             </button>  
             {/if}
         </div>

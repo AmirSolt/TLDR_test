@@ -93,7 +93,7 @@
 
         {#if $compareList.find((item) => item.asin === product.asin) || $compareList.length>=MAX_COMPARE_LIST_SIZE}
             <button class="btn variant-filled" type="button" on:click={addCompareProduct} disabled>
-                +Compare
+                -
             </button>
         {:else}
             <button class="btn variant-filled" type="button" on:click={addCompareProduct}>

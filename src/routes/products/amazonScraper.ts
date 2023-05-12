@@ -29,7 +29,7 @@ function getProductSpecifications(result){
 
 
 export async function getSearchResults(keyword){
-    const products = await amazonScraper.products({ keyword: keyword, number: 50 });
+    const products = await amazonScraper.products({ keyword: keyword, number: 10 });
     return products.result
 }
 

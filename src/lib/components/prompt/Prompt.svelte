@@ -14,9 +14,7 @@
 </script>
 
 <Modal bind:showModal={showPrompt}>
-    <h2>
-       ASIN: {$compareList}
-    </h2>
+ 
 
     {#if !session?.user}
             <AuthForm />

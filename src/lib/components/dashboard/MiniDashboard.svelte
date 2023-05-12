@@ -12,6 +12,11 @@
 </script>
 
 
+{#if session?.user && wallet?.is_subscribed}
+
+<div></div>
+
+{:else}
 <div class="card p-4 variant-soft-primary">
 
     {#if !session?.user}
@@ -38,10 +43,11 @@
                 <PaymentPrompt />
             </Modal>
         {:else}
-        <h3>
+        <!-- <h3>
             You are subscribed
-        </h3>
+        </h3> -->
         {/if}
     {/if}
 </div>
 
+{/if}
