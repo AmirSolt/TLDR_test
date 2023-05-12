@@ -28,7 +28,7 @@
 
 
 
-<div id="product_card"  class=" flex flex-col justify-between  card variant-soft rounded-lg p-4 overflow-hidden"> 
+<div id="product_card"  class=" flex flex-col justify-between  card drop-shadow-md !bg-transparent rounded-lg p-4 overflow-hidden"> 
 
     <!-- <Prompt {product} bind:showPrompt /> -->
 

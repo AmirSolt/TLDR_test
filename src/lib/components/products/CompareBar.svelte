@@ -16,7 +16,7 @@
 
 </script>
 
-<div class="flex justify-between items-center  p-2 variant-soft rounded-lg">
+<div class="flex justify-between items-center p-2 card drop-shadow-md !bg-transparent rounded-lg">
     
 
 
