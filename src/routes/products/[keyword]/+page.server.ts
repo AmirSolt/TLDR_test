@@ -14,7 +14,7 @@ export const load = async ({params}) => {
     return{
         streamed:{
 
-            products: await getSearchResults(keyword, "US")
+            products: getSearchResults(keyword, "US")
         }
     }
 

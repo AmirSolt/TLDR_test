@@ -15,13 +15,13 @@
 	on:click|self={() => dialog.close()}
 >
 	<div on:click|stopPropagation class="h-full">
-		<div class="flex justify-end">
+		<div class="flex justify-end" >
 			<!-- svelte-ignore a11y-autofocus -->
 			<button class="btn-icon variant-filled" autofocus on:click={() => dialog.close()}><X /></button>
 		</div>
 		<!-- <slot name="header" /> -->
 		<br>
-		<div class="h-fit">
+		<div class="h-full" style="max-height:80%">
 			<slot />
 		</div>
 

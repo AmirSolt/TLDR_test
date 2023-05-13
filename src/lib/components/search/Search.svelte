@@ -32,7 +32,7 @@
 <div class="my-5" >
     <form class="flex w-full h-14 justify-center"  on:submit|preventDefault={searchForm}>
         <div class="input-group input-group-divider grid-cols-[1fr_auto] variant-ringed ">
-            <input type="text" placeholder="Search..." bind:value={searchTerm} />
+            <input type="text" placeholder="Search..." bind:value={searchTerm} autocomplete="off" />
             <button class="variant-filled-secondary"><Search /></button>
         </div>
     </form>

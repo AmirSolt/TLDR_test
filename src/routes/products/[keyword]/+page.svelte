@@ -19,7 +19,7 @@
 
 <div class="my-5">
 
-    {#await streamed?.products then products}
+    {#await streamed.products then products}
 
 
     {#if products?.length === 0}

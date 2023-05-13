@@ -59,9 +59,9 @@
 
 
 
-<div class="grid grid-row-[1fr_auto] ">
+<div class=" h-full">
 	<!-- Conversation -->
-	<section bind:this={elemChat} class="max-h-80 overflow-y-auto">
+	<section bind:this={elemChat} class="overflow-y-auto" style="max-height:80%;min-height:80%;">
 		{#each messages as message}
 			<ChatMessage {message} />
 		{/each}
@@ -71,13 +71,13 @@
 	<hr>
 	<br>
 
-	<section class="">
+	<section class="" style="max-height:20%;">
 
 		<form
 		on:submit|preventDefault={() => handleSubmit()}
 		>
 			<div class="input-group input-group-divider grid-cols-4 rounded-lg">
-				<input class="col-span-3 " type="text" name="prompt" bind:value={currentMessage.content}>
+				<input class="col-span-3 " type="text" name="prompt" bind:value={currentMessage.content} autocomplete="off">
 				<button class="variant-filled-primary text-center">Send</button>
 				
 			</div>
