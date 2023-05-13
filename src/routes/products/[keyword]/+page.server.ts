@@ -10,15 +10,7 @@ import {getSearchResults} from './sampleData'
 export const load = async ({params}) => {
 
     const {keyword} = params;
-    
-    console.log(keyword)
-
-    // if(!searchSchema.safeParse(keyword).success)
-    //     return {status: 400, message: 'Invalid search term', streamed:{products:[]}};
-
-    console.log("[keyword]/+page.server.ts")
-
-
+ 
     return{
         streamed:{
 

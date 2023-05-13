@@ -7,39 +7,53 @@ import { SSE } from 'sse.js'
 
 
 
-function scrollToBottom() {
-    setTimeout(function () {
-        scrollToDiv.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
-    }, 100)
-}
 
 
 
 
 
 
-const handleSubmit = async () => {
-    loading = true
-    chatMessages = [...chatMessages, { role: 'user', content: query }]
+
+export const handleSubmit = async (chatArgs:any, scrollToDiv:any) => {
+
+    // ==============================================================
+
+    function scrollToBottom() {
+        setTimeout(function () {
+            scrollToDiv.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+        }, 100)
+    }
+
+    function handleError<T>(err: T) {
+        chatArgs.loading = false
+        chatArgs.query = ''
+        chatArgs.answer = ''
+        console.error(err)
+    }
+
+    // ==============================================================
+
+    chatArgs.loading = true
+    chatArgs.chatMessages = [...chatArgs.chatMessages, { role: 'user', content: chatArgs.query }]
 
     const eventSource = new SSE('/api/chat', {
         headers: {
             'Content-Type': 'application/json'
         },
-        payload: JSON.stringify({ messages: chatMessages })
+        payload: JSON.stringify({ messages: chatArgs.chatMessages })
     })
 
-    query = ''
+    chatArgs.query = ''
 
     eventSource.addEventListener('error', handleError)
 
     eventSource.addEventListener('message', (e) => {
         scrollToBottom()
         try {
-            loading = false
+            chatArgs.loading = false
             if (e.data === '[DONE]') {
-                chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
-                answer = ''
+                chatArgs.chatMessages = [...chatArgs.chatMessages, { role: 'assistant', content: chatArgs.answer }]
+                chatArgs.answer = ''
                 return
             }
 
@@ -47,7 +61,7 @@ const handleSubmit = async () => {
             const [{ delta }] = completionResponse.choices
 
             if (delta.content) {
-                answer = (answer ?? '') + delta.content
+                chatArgs.answer = (chatArgs.answer ?? '') + delta.content
             }
         } catch (err) {
             handleError(err)
@@ -61,9 +75,3 @@ const handleSubmit = async () => {
 
 
 
-function handleError<T>(err: T) {
-    loading = false
-    query = ''
-    answer = ''
-    console.error(err)
-}
