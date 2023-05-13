@@ -1,37 +1,43 @@
 <script lang="ts">
 	import { Avatar } from '@skeletonlabs/skeleton';
-	import type { ChatCompletionRequestMessageRoleEnum } from 'openai'
-	export let type: ChatCompletionRequestMessageRoleEnum
-	export let message: string
+	import { ChatCompletionRequestMessageRoleEnum } from 'openai'
+	import type {Message} from './chatHelper'
+	export let message: Message
 </script>
 
 
-{#if type === 'user'}
+{#if message.role === ChatCompletionRequestMessageRoleEnum.System}
 
+<div></div>
 
-<div class="grid grid-cols-[1fr_auto] gap-2">
-	<div class="card p-4 variant-soft rounded-tl-none space-y-2">
-		<header class="flex justify-between items-center">
-			<p class="font-bold">You</p>
+{:else if message.role === ChatCompletionRequestMessageRoleEnum.User}
+
+<div class="flex justify-end text-end">
+
+	<div class=" w-3/4 my-2">
+		<header class="">
+			<small class="font-bold">User</small>
 		</header>
-		<p>{message}</p>
-	</div>
-	<Avatar initials="Me" width="w-12" />
-</div>
-					
-
-{:else}
-
-
-<div class="grid grid-cols-[auto_1fr] gap-2">
-	<Avatar initials="AI" width="w-12" />
-	<div class="card p-4 rounded-tr-none space-y-2">
-		<header class="flex justify-between items-center">
-			<p class="font-bold">AI</p>
-		</header>
-		<p>{message}</p>
+		<div class="card p-4 variant-soft-secondary rounded-tl-none">
+			<p>{message.content}</p>
+		</div>
 	</div>
 </div>
+
 					
+
+{:else if message.role === ChatCompletionRequestMessageRoleEnum.Assistant}
+
+
+<div class="flex justify-start text-start">
+	<div class=" w-3/4 m-2">
+		<header class="">
+			<small class="font-bold">AI</small>
+		</header>
+		<div class="card p-4 variant-soft rounded-tr-none">
+			<p>{message.content}</p>
+		</div>
+	</div>
+</div>					
 
 {/if}

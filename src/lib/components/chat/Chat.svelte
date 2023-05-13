@@ -1,54 +1,88 @@
 
 
 <script lang="ts">
+	
+	import { ChatCompletionRequestMessageRoleEnum } from 'openai'
+	import type {Message} from './chatHelper'
 	import ChatMessage from './ChatMessage.svelte'
-	import type { ChatCompletionRequestMessage } from 'openai'
-	import {handleSubmit} from './chatHelper'
-	
-	class ChatArgs  {
-		query:string = ''
-		answer:string= ''
-		loading:boolean= false
-		chatMessages:ChatCompletionRequestMessage[] = []
-	}
-	let scrollToDiv:HTMLDivElement
-	
-	let chatArgs = new ChatArgs()
 
-	
+	let elemChat: HTMLElement;
+
+	let messages:Message[] = [
+		{
+			"role": ChatCompletionRequestMessageRoleEnum.System,
+			"content": "I'm system"
+		},
+		{
+			"role": ChatCompletionRequestMessageRoleEnum.User,
+			"content": "I'm User"
+		},
+		{
+			"role": ChatCompletionRequestMessageRoleEnum.Assistant,
+			"content": "I'm Assistant"
+		},
+		{
+			"role": ChatCompletionRequestMessageRoleEnum.User,
+			"content": "I'm user again"
+		},
+	]
+
+
+	function resetCurrentMessage(): Message {
+		return {
+			"role": ChatCompletionRequestMessageRoleEnum.User,
+			"content": ""
+		};
+	}
+
+	let currentMessage:Message= resetCurrentMessage()
+
+	function scrollChatBottom(behavior?: ScrollBehavior): void {
+		elemChat.scrollTo({ top: elemChat.scrollHeight, behavior });
+	}
+
+	function handleSubmit(): void {
+
+		// Update the message feed
+		messages = [...messages, currentMessage];
+		// Clear prompt
+		currentMessage =  resetCurrentMessage()
+		// Smooth scroll to bottom
+		// Timeout prevents race condition
+		setTimeout(() => {
+			scrollChatBottom('smooth');
+		}, 0);
+	}
+
+
 </script>
 
-<div class="">
-	
 
 
-	<div class="">
-		<div class="">
-			<ChatMessage type="assistant" message="Hello, ask me anything you want!" />
-			{#each chatArgs.chatMessages as message}
-				<ChatMessage type={message.role} message={message.content} />
-			{/each}
-			{#if chatArgs.answer}
-				<ChatMessage type="assistant" message={chatArgs.answer} />
-			{/if}
-			{#if chatArgs.loading}
-				<ChatMessage type="assistant" message="Loading.." />
-			{/if}
-		</div>
-		<div class="" bind:this={scrollToDiv} />
-	</div>
+<div class="grid grid-row-[1fr_auto] ">
+	<!-- Conversation -->
+	<section bind:this={elemChat} class="max-h-80 overflow-y-auto">
+		{#each messages as message}
+			<ChatMessage {message} />
+		{/each}
+	</section>
 
+	<br>
+	<hr>
+	<br>
 
-	<form
-		class="flex w-full rounded-md gap-4 bg-gray-900 p-4"
-		on:submit|preventDefault={() => handleSubmit(chatArgs, scrollToDiv)}
-	>
-		<div class="input-group input-group-divider grid-cols-4 rounded-container-token">
-			<input class="bg-transparent border-0 ring-0 col-span-3" type="text" name="prompt" bind:value={chatArgs.query}>
-			<button class="variant-filled-primary">Send</button>
-		</div>
-					
-	</form>
+	<section class="">
+
+		<form
+		on:submit|preventDefault={() => handleSubmit()}
+		>
+			<div class="input-group input-group-divider grid-cols-4 rounded-lg">
+				<input class="col-span-3 " type="text" name="prompt" bind:value={currentMessage.content}>
+				<button class="variant-filled-primary text-center">Send</button>
+				
+			</div>
+						
+		</form>
+
+	</section>
 </div>
-
-

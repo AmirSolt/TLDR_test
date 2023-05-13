@@ -19,9 +19,14 @@
 	import {wallet} from '$lib/data/stores';
 
 	async function fetchData(){
-		console.log('getWallet');
+		if(!session?.user?.id) return;
+
 		if (!$wallet.plan) {
-			let results = await supabase.from('wallets').select('plan, credit').single()
+			let results = await supabase.from('wallets').select('plan, credit').eq('id', session?.user.id).single()
+			if(results.error){
+				console.log(results.error);
+				return;
+			}
 			wallet.set(
 				results.data?? {}
 			)
