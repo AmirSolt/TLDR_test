@@ -3,6 +3,8 @@
 	import Footer from '$lib/components/basic/Footer.svelte';
 	import MiniDashboard from '$lib/components/dashboard/MiniDashboard.svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
+	import { Drawer } from '@skeletonlabs/skeleton';
+
 
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css'
 	import '@skeletonlabs/skeleton/styles/all.css'
@@ -62,9 +64,27 @@
 
 	<svelte:fragment slot="header">
 		<header>
-			<Header />
+				<Header />
 		</header>
 	</svelte:fragment>
+
+	<Drawer  >
+		<div class="h-full flex flex-col pt-8 md:pt-20">
+			<a href="/account" class="btn variant-soft h-20 mx-2 my-4 drop-shadow-md"  >
+				<h2 class="font-bold"> Account</h2>
+			</a>
+			<a href="/payment" class="btn variant-soft h-20 mx-2 my-4 drop-shadow-md"  >
+				<h2 class="font-bold"> Payment</h2>
+			</a>
+			<a href="/payment" class="btn variant-soft h-20 mx-2 my-4 drop-shadow-md"  >
+				<h2 class="font-bold"> Chat History</h2>
+			</a>
+			<a href="/logout" class="btn variant-soft h-20 mx-2 my-4 drop-shadow-md"  >
+				<h2 class="font-bold"> Logout</h2>
+			</a>
+		</div>
+	</Drawer>
+	
 
 	<MiniDashboard />
 

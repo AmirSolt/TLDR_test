@@ -1,26 +1,32 @@
 <script lang="ts">
 
-	import {logout} from '$lib/components/auth/authFuncs';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	$: ({ supabase } = $page.data);
+	import { drawerStore } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
-	function onSelectClick(e){
-		// set Home as selected
-		const destination = e.target.value
-		e.target.value = 'home';
-		if(destination === 'logout')
-			logout(supabase);
-		goto(`/${destination}`);
+
+	function triggerDrawer(position: 'left' | 'top' | 'right' | 'bottom'): void {
+		const drawerSettings: DrawerSettings = {
+			id: 'demo',
+			// Property Overrides
+			position: position,
+			bgDrawer: '',
+			bgBackdrop: 'bg-gradient-to-r from-slate-800/40 via-gray-500/40 to-cyan-300/40',
+			width: 'w-[280px] md:w-[480px]',
+			padding: 'p-4',
+			rounded: 'rounded-xl',
+			// Metadata
+			meta: 'Styled Drawer'
+		};
+		drawerStore.open(drawerSettings);
 	}
+
 
 </script>
 
 
-<select class="select variant-soft border-0" on:change={onSelectClick} >
-	<option class="hidden" value="home" disabled selected >Home</option>
-	<option class="" value="account" >Account</option>
-	<option class="" value="payment" >Payment</option>
-	<option class="" value="logout" >Logout</option>
-</select>
+
+<button class="btn-icon variant-filled" on:click={() => { triggerDrawer('right'); }}>
+	<i class="fa-solid fa-arrow-left"></i>
+</button>
+
 

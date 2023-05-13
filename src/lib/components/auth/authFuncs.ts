@@ -1,7 +1,7 @@
 
 
-import {goto} from '$app/navigation'
 import { signUpSchema, signInSchema, tokenVerifySchema } from '$lib/schemas/auth'
+import { redirect } from '@sveltejs/kit'
 
 
 
@@ -83,19 +83,6 @@ export const login = async (supabase, formData ) => {
     }
 }
 
-
-
-export const logout = async (supabase) => {
-    const { error: err } = await supabase.auth.signOut()
-
-    if (err) {
-        return {
-            error: true,
-            message: "Authentification failed"
-        }
-    }
-    goto("/")
-}
 
 
 
